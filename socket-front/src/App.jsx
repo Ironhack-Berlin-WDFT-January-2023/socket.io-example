@@ -38,7 +38,8 @@ function App() {
   if(!firstTime){
     axios.get(url + "messages")
     .then(res => {
-      setStoredMessages(res.data.messages);
+      console.log(res.data)
+      setStoredMessages(res.data);
     })
     setfirstTime(true)
   }
@@ -116,7 +117,7 @@ function App() {
             <div className="card mt-3 mb-3 shadow border-0" id="content-chat">
               <div className="card-body">
 
-                {messages.map((message, index) => (
+                {messages && messages.map((message, index) => (
                   <div key={index} className={`d-flex p-3 ${message.from === "Yo" ? "justify-content-end" : "justify-content-start"}`}>
                     <div className={`card mb-3 shadow border-1 ${message.from === "Yo" ? "bg-success bg-opacity-25" : "bg-light"}`}>
                       <div className="card-body">
@@ -128,7 +129,7 @@ function App() {
                 ))}
 
                 {/* chat stored messages */}
-                {storedMessages.map((message, index) => (
+                {storedMessages &&storedMessages.map((message, index) => (
                   <div key={index} className={`d-flex p-3 ${message.from === nickname ? "justify-content-end" : "justify-content-start"}`}>
                     <div className={`card mb-3 shadow border-1 ${message.from === nickname ? "bg-success bg-opacity-25" : "bg-light"}`}>
                       <div className="card-body">
