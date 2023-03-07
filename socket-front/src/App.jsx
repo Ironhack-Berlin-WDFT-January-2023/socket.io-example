@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 //Conexión para escuchar y enviar eventos
-const socket = io('http://localhost:4000')
+const socket = io('http://127.0.0.1:5005') //d
 
 
 function App() {
