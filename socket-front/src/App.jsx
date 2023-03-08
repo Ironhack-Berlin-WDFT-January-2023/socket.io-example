@@ -1,10 +1,11 @@
-import './App.css';
-//npm i socket.io-client (versión para react)
+//npm i socket.io-client (version for react)
 import io from 'socket.io-client'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-//Conexión para escuchar y enviar eventos
-const socket = io('http://127.0.0.1:5005') //d
+
+//important part ->
+//Conection to catch and send message 
+const socket = io('http://127.0.0.1:5005')
 
 
 function App() {
@@ -20,13 +21,12 @@ function App() {
 
   useEffect(() =>{
     const receivedMessage = (message) =>{
-      //console.log(message)
       setMessages([message, ...messages])
     
     }
     socket.on('message', receivedMessage)
 
-    //Desuscribimos el estado del componente cuando ya no es necesario utilizarlo
+    //Close the connection when the component is unmounted
     return () => {
       socket.off('message', receivedMessage)
     }
@@ -46,33 +46,32 @@ function App() {
   
 
   const handlerSubmit = (e) => {
-    //Evitamos recargar la página
     e.preventDefault()
 
-    //Enviamos el mensaje sólo si se ha establecido un nickname
+    //Send the message only if a nickname was already
     if(nickname !== ''){
       //console.log(message)
-      //Enviamos el mensaje al servidor
+      //Send a message to the server
       socket.emit('message', message, nickname)
 
-      //Nuestro mensaje
+      //Our message
       const newMessage = {
         body: message,
         from: 'Yo'
       }
-      //Añadimos el mensaje y el resto de mensajes enviados
+      //Add the message to the rest of the messages. 
       setMessages([newMessage, ...messages])
-      //Limpiamos el mensaje
+      //Clean the message
       setMessage('')
 
-      //Petición http por POST para guardar el artículo:
+      //Request to save the message into the DB
       axios.post(url + 'save', {
         message: message,
         from: nickname
       })
 
     }else{
-      alert('Para enviar mensajes debes establecer un nickname!!!')
+      alert('For send a mesage you first have to choose a nickname')
     }
     
   }
@@ -148,3 +147,5 @@ function App() {
 }
 
 export default App;
+
+
