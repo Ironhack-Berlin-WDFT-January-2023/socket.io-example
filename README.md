@@ -1,14 +1,12 @@
 
-# Project Title
+# Socket.io Implementation
 
-Socket.io Implementation
 
+Take in count this example have front end and the back end part and you have to implement both. 
  
 ## Documentation
 
 [Documentation](https://socket.io/docs/v4/)
-
-Take in count this example have front end and the back end part and you have to implement both. 
 
 
 ## Appendix
